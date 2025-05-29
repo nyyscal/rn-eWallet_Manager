@@ -2,7 +2,7 @@
 import {Alert} from "react-native"
 const { useState, useCallback } = require("react")
 
-const API_URL = "http://localhost:5001/api"
+const API_URL = "http://192.168.1.9:5001/api"
 
 export const useTransaction = (userId)=>{
   const [transactions,setTransactions]= useState([])
@@ -23,7 +23,7 @@ export const useTransaction = (userId)=>{
     } catch (error) {
       console.error("Error fetchingtransactions:",error)
     }
-  })
+  },[userId])
   const fetchSummary = useCallback(async()=>{
     try {
       const res = await fetch(`${API_URL}/transactions/summary/${userId}`)
@@ -32,7 +32,7 @@ export const useTransaction = (userId)=>{
     } catch (error) {
       console.error("Error fetchingtransactions:",error)
     }
-  })
+  },[userId])
 
   const loadData = useCallback(async()=>{
     if(!userId) return;
